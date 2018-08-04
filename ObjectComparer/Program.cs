@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ObjectComparer.TestClasses;
+using System;
 
 namespace ObjectComparer
 {
@@ -10,6 +7,13 @@ namespace ObjectComparer
     {
         static void Main(string[] args)
         {
+            var a = new TestClass1(new InnerClass(1, "name"), 2.5, 3);
+            var b = new TestClass1(new InnerClass(1, "name1"), 2.5, 3);
+            GenericComparer genericComparer = new GenericComparer();
+
+            Console.WriteLine(genericComparer.Compare(a, b));
+
+            Console.ReadLine();
         }
     }
 }
