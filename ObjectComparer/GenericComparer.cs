@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ObjectComparer
 {
@@ -21,24 +19,15 @@ namespace ObjectComparer
 
         private bool DeepCompare<T>(T first,T second)
         {            
-
             var firstObjectType = first.GetType();
             var secondObjectType = second.GetType();
-
-            //if (firstObjectType != secondObjectType)
-            //{
-            //    if (!firstObjectType.IsSubclassOf(secondObjectType) && !secondObjectType.IsSubclassOf(firstObjectType))
-            //    {
-            //        return false;
-            //    }
-            //}
 
             if (firstObjectType != secondObjectType)
             {
                 return false;
             }
 
-            if (IsPrimitive(first))
+            if (IsPrimitiveOrSimpleType(first))
             {
                 if (first.Equals(second))
                 {
@@ -55,7 +44,7 @@ namespace ObjectComparer
 
             foreach (var elem in firstObjectFields)
             {
-                if (IsPrimitive(elem.GetValue(first)))
+                if (IsPrimitiveOrSimpleType(elem.GetValue(first)))
                 {
                     if (!elem.GetValue(first).Equals(elem.GetValue(second)))
                     {
@@ -103,9 +92,11 @@ namespace ObjectComparer
             return type.GetProperties(flags).Union(GetAllProperties(type.BaseType));
         }
 
-        private bool IsPrimitive(object obj)
+        private bool IsPrimitiveOrSimpleType(object obj)
         {
-            if (obj.GetType().IsPrimitive || obj.GetType() == typeof(string) || obj.GetType() == typeof(decimal))
+            Type objType = obj.GetType();
+
+            if (objType.IsPrimitive || objType == typeof(string) || objType == typeof(decimal) || objType == typeof(DateTime) || objType == typeof(object))
             {
                 return true;
             }
