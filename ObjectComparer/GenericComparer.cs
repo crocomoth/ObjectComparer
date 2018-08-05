@@ -53,7 +53,10 @@ namespace ObjectComparer
                 }
                 else
                 {
-                    return DeepCompare(elem.GetValue(first), elem.GetValue(second));
+                    if (!DeepCompare(elem.GetValue(first), elem.GetValue(second)))
+                    {
+                        return false;
+                    }
                 }
             }
 

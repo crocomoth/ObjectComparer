@@ -7,8 +7,8 @@ namespace ObjectComparer
     {
         static void Main(string[] args)
         {
-            var a = new TestClass1(new InnerClass(1, "name"), 2.5, 3);
-            var b = new TestClass1(new InnerClass(1, "name1"), 2.5, 3);
+            var a = new TestClass1(new InnerClass(1, "name"), 2, 3);
+            var b = new TestClass1(new InnerClass(1, "name"), 2.5, 3);
             GenericComparer genericComparer = new GenericComparer();
 
             Console.WriteLine("comparing 2 custom objects");
